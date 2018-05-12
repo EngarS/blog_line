@@ -74,4 +74,10 @@
         </div>
     </div>
 </div>
+
+
+@if (session()->has('message'))
+    <div class="alert alert-info">{{ session('message') }}</div>
+@endif
+
 @endsection

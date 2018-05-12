@@ -22,3 +22,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Verified user
+Route::get('register/confirm/{token}', 'Auth\RegisterController@confirmEmail');
