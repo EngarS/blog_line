@@ -31,6 +31,21 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
+                    @if(Auth::user())
+                        <a class="navbar-brand" href="{{ url('/home') }}">
+                            Home
+                        </a>
+                    @else
+                        <a class="navbar-brand" href="{{ url('/login') }}">
+                            Home
+                        </a>
+                    @endif
+                    @if(Auth::user())
+                        <a class="navbar-brand" href="{{ route('home.create') }}">
+                            Добавить статью
+                        </a>
+                    @endif
+
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">

@@ -12,16 +12,20 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'ArticleController@index')->name('home');
+Route::resource('home', 'ArticleController');//->name('article');
 
-Auth::routes();
+//Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 // Verified user
 Route::get('register/confirm/{token}', 'Auth\RegisterController@confirmEmail');
+
+
+

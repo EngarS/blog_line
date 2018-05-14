@@ -1,23 +1,45 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
 
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <a href="{{route('home.create')}}" class="btn btn-primary pull-right"><i class="fa fa-plus-square-o"></i> Создать статью</a>
+    <table class="table table-striped">
+        <thead>
+        <th>Наименование</th>
+        <th>Публикация</th>
+        <th class="text-right">Действие</th>
+        </thead>
+        <tbody>
+        @forelse ($articles as $article)
+            <tr>
+                <td>{{$article->title}}</td>
+                <td>{{$article->published}}</td>
+                <td class="text-right">
+                    <form onsubmit="if(confirm('Удалить?')){ return true }else{ return false }" action="{{route('home.destroy', $article)}}" method="post">
+                        <input type="hidden" name="_method" value="DELETE">
+                        {{ csrf_field() }}
 
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                        <a class="btn btn-default" href="{{route('home.edit', $article)}}"><i class="fa fa-edit"></i></a>
+
+                        <button type="submit" class="btn"><i class="fa fa-trash-o"></i></button>
+                    </form>
+                </td>
+            </tr>
+        @empty
+            <tr>
+                <td colspan="3" class="text-center"><h2>Данные отсутствуют</h2></td>
+            </tr>
+        @endforelse
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="3">
+                <ul class="pagination pull-right">
+                    {{$articles->links()}}
+                </ul>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+
 @endsection
