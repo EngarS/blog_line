@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-md-4">Дата создания статьи: {{$article->created_at}}</div>
             <div class="col-md-4"></div>
-            <div class="col-md-4">Автор: {{$article->created_by}}</div>
+            <div class="col-md-4">Автор: {{\App\User::find($article->created_by)->name}}</div>
         </div>
 
     </div>

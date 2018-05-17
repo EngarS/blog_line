@@ -8,9 +8,9 @@
             <h1> <a href="{{route('show', $article->id)}}"> {{$article->title}} </a> </h1>
 
             <div class="row">
-                <div class="col-md-4"><h4>Дата создания статьи: {{date('d-m-Y', strtotime($article->created_at))}}</h4></div>
+                <div class="col-md-4"><h5>Дата создания статьи: {{date('d-m-Y', strtotime($article->created_at))}}</h5></div>
                 <div class="col-md-4"></div>
-                <div class="col-md-4"><h4>Автор: {{\App\User::find($article->created_by)->name}}</h4></div>
+                <div class="col-md-4"><h5>Автор: {{\App\User::find($article->created_by)->name}}</h5></div>
             </div>
 
             <br>
