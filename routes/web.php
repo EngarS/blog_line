@@ -11,14 +11,28 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('index');
-});
-
+})->name('/');
+*/
 Auth::routes();
 
 //Route::get('/home', 'ArticleController@index')->name('home');
-Route::resource('home', 'ArticleController');//->name('article');
+//Route::resource('home', 'ArticleController')->middleware('auth');//->name('article');
+Route::get('/', 'ArticleController@show_all')->name('/');;
+
+Route::get('/home', 'ArticleController@index')->name('home.index')->middleware('auth');
+Route::get('/home/{id}', 'ArticleController@show')->name('show');
+
+Route::get('/create', 'ArticleController@create')->name('home.create');
+Route::post('/create', 'ArticleController@store')->name('home.store');
+Route::get('/home/{id}/edit', 'ArticleController@edit')->name('home.edit');
+Route::post('/home/{id}', 'ArticleController@update')->name('home.update');
+
+Route::delete('/home/{id}', 'ArticleController@destroy')->name('home.destroy');
+
+
+
 
 //Auth::routes();
 

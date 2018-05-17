@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Auth;
 
 class ArticleController extends Controller
 {
@@ -16,7 +17,7 @@ class ArticleController extends Controller
     public function index()
     {
         return view('home', [
-            'articles' => Article::orderBy('created_at', 'desc')->paginate(5)
+            'articles' => Article::where('created_by', Auth::id())->orderBy('created_at', 'desc')->paginate(5)
         ]);
     }
 
@@ -40,15 +41,19 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        Article::create($request->all());
-        /*$article = new Article;
+        //Article::create($request->all());
+       // /*
+        $article = new Article;
 
         $article->title = $request->title;
         $article->description_short = $request->description_short;
         $article->description = $request->description;
         $article->published = $request->published;
-        $article->published = $request->published;
-        */
+        $article->viewed = 0;
+        $article->created_by = $request->created_by;
+
+        $article->save();
+        //*/
 
         return redirect()->route('/');
     }
@@ -59,9 +64,12 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show($id)
     {
-        //
+        $article = Article::find($id);
+        return view('articles.show', [
+            'article' => $article
+        ]);
     }
 
     /**
@@ -69,10 +77,13 @@ class ArticleController extends Controller
      *
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
-     */
-    public function edit(Article $article)
+     */ //Article $article
+    public function edit($id)
     {
-        //
+        $article = Article::find($id);
+        return view('articles.edit',[
+            'article' => $article
+        ]);
     }
 
     /**
@@ -81,20 +92,43 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Article $article)
+     */ //Article $article
+    public function update(Request $request, int $id)
     {
-        //
+        $article = Article::find($id);
+        //$article->update($request->all());
+        $article->title = $request->input('title');
+        $article->description_short = $request->input('description_short');
+        $article->description = $request->input('description');
+        $article->published = $request->input('published');
+        $article->viewed = 0;
+
+        $article->save();
+
+
+        return redirect()->route('home.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Article  $article
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Article $article)
+     * @return \Illuminate\Http\ResponseArticle
+     */ //Article  $article
+    public function destroy($id)
     {
-        //
+        Article::find($id)->delete();
+        //$article->delete();
+        return redirect()->route('home.index');
+        //return $article->description;
+    }
+
+
+    // show all
+    public function show_all()
+    {
+        return view('index', [
+            'articles' => Article::where('published', '1')->orderBy('created_at', 'desc')->paginate(5)
+        ]);
     }
 }

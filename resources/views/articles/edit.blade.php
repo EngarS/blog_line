@@ -3,14 +3,16 @@
 @section('content')
 
     <div class="container">
-        <form class="form-horizontal" action="{{route('home.store')}}" method="post">
+        <h1>Редактировать статью</h1>
+        <br>
+        <form class="form-horizontal" action="{{route('home.update', $article->id)}}" method="post">
             {{ csrf_field() }}
 
             {{-- Form include --}}
             @include('articles.partials.form')
 
-            <input type="hidden" name="created_by" value="{{Auth::id()}}">
         </form>
+
     </div>
 
 @endsection

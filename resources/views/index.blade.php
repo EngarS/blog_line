@@ -2,13 +2,32 @@
 
 @section('content')
 
-    <div class="content">
-        <div class="title">
-            Laravel
-        </div>
-        <a> Hello world! Здесь будет список всех статей с кратким представлением</a>
+    <div class="container">
+
+        @forelse ($articles as $article)
+            <h1> <a href="{{route('show', $article->id)}}"> {{$article->title}} </a> </h1>
+
+            <div class="row">
+                <div class="col-md-4"><h4>Дата создания статьи: {{date('d-m-Y', strtotime($article->created_at))}}</h4></div>
+                <div class="col-md-4"></div>
+                <div class="col-md-4"><h4>Автор: {{\App\User::find($article->created_by)->name}}</h4></div>
+            </div>
+
+            <br>
+            <hr>
+
+            {{$article->description_short}}
+            <div class="row">
+                <div class="col-md-offset-11"><a href="{{route('show', $article->id)}}"> Продолжить </a></div>
+            </div>
+            <hr size=5>
+
+        @empty
+            <tr>
+                <td colspan="3" class="text-center"><h2>Пока нет статей. Зайдите позже.</h2></td>
+            </tr>
+        @endforelse
 
     </div>
-
 
 @endsection
