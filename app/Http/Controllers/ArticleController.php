@@ -59,7 +59,6 @@ class ArticleController extends Controller
     public function update(Request $request, int $id)
     {
         $article = Article::find($id);
-        //$article->update($request->all());
         $article->title = $request->input('title');
         $article->description_short = $request->input('description_short');
         $article->description = $request->input('description');
