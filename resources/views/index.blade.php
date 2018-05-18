@@ -28,6 +28,9 @@
             </tr>
         @endforelse
 
+        <ul class="pagination pull-right">
+            {{$articles->links()}}
+        </ul>
     </div>
 
 @endsection

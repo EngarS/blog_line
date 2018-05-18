@@ -11,14 +11,8 @@
 |
 */
 
-/*Route::get('/', function () {
-    return view('index');
-})->name('/');
-*/
 Auth::routes();
 
-//Route::get('/home', 'ArticleController@index')->name('home');
-//Route::resource('home', 'ArticleController')->middleware('auth');//->name('article');
 Route::get('/', 'ArticleController@show_all')->name('/');;
 
 Route::get('/home', 'ArticleController@index')->name('home.index')->middleware('auth');
@@ -30,13 +24,6 @@ Route::get('/home/{id}/edit', 'ArticleController@edit')->name('home.edit');
 Route::post('/home/{id}', 'ArticleController@update')->name('home.update');
 
 Route::delete('/home/{id}', 'ArticleController@destroy')->name('home.destroy');
-
-
-
-
-//Auth::routes();
-
-//Route::get('/home', 'HomeController@index')->name('home');
 
 // Verified user
 Route::get('register/confirm/{token}', 'Auth\RegisterController@confirmEmail');

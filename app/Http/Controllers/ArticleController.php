@@ -9,11 +9,7 @@ use Auth;
 
 class ArticleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         return view('home', [
@@ -21,11 +17,6 @@ class ArticleController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('articles.create',[
@@ -33,16 +24,8 @@ class ArticleController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //Article::create($request->all());
-       // /*
         $article = new Article;
 
         $article->title = $request->title;
@@ -53,17 +36,10 @@ class ArticleController extends Controller
         $article->created_by = $request->created_by;
 
         $article->save();
-        //*/
 
         return redirect()->route('/');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Article  $article
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $article = Article::find($id);
@@ -72,12 +48,6 @@ class ArticleController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Article  $article
-     * @return \Illuminate\Http\Response
-     */ //Article $article
     public function edit($id)
     {
         $article = Article::find($id);
@@ -86,13 +56,6 @@ class ArticleController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Article  $article
-     * @return \Illuminate\Http\Response
-     */ //Article $article
     public function update(Request $request, int $id)
     {
         $article = Article::find($id);
@@ -109,20 +72,12 @@ class ArticleController extends Controller
         return redirect()->route('home.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Article  $article
-     * @return \Illuminate\Http\ResponseArticle
-     */ //Article  $article
     public function destroy($id)
     {
         Article::find($id)->delete();
-        //$article->delete();
-        return redirect()->route('home.index');
-        //return $article->description;
-    }
 
+        return redirect()->route('home.index');
+    }
 
     // show all
     public function show_all()
