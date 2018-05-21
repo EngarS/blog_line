@@ -28,5 +28,9 @@ Route::delete('/home/{id}', 'ArticleController@destroy')->name('home.destroy');
 // Verified user
 Route::get('register/confirm/{token}', 'Auth\RegisterController@confirmEmail');
 
+// laravel/socialite
+Route::get('login/github', 'Auth\LoginController@redirectToProvider');
+Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
+
 
 
